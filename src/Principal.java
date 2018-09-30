@@ -214,7 +214,7 @@ public class Principal {
     }
     
      /**
-     * Retorna as adjacencias de um vértice.
+     * Retorna as adjacências de um vértice.
      * 
      * @param G Matriz do grafo.
      * @param n Quantidade de vértices do grafo.
@@ -232,7 +232,7 @@ public class Principal {
     }
     
     /**
-     * Retorna a lista das adjacêncais dos vértices do Grafo.
+     * Retorna a lista das adjacências dos vértices do Grafo.
      *
      * @param G Matriz do grafo.
      * @param n Quantidade de vértices do grafo.

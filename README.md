@@ -9,4 +9,5 @@ Operações diversas com grafos não orientados em matriz de adjacência:<br>
 - Mostrar o grau de todos os vértices<br>
 - Mostrar os vértices adjacentes de um vértice<br>
 - Mostrar os vértices adjacentes de todos os vértices<br>
+- Verificar se o grafo é conexo<br>
 

@@ -91,7 +91,7 @@ public class Principal {
             {0, 0, 0, 0, 0, 1, 1},//5
             {0, 1, 1, 0, 1, 0, 0},//6
             {0, 0, 0, 1, 1, 0, 0} //7
-        }; //Det 28
+        }; 
         //Atribui para G
         G = g;
         JOptionPane.showMessageDialog(null, "Grafo carregado!");
@@ -150,7 +150,6 @@ public class Principal {
                     conta = conta + 1;
                 }
             }
-//            saida = saida + "\n";
         }
         return saida;
     }

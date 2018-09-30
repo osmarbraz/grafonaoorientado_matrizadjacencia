@@ -1,7 +1,7 @@
 
 /**
  * Implementação de exemplo que utiliza JOptionPane para construir um menu de
- * opções para um grafo não orientado utilizando uma matriz de adjacência.
+ * opções para um grafo utilizando uma matriz de adjacência.
  */
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -91,7 +91,7 @@ public class Principal {
             {0, 0, 0, 0, 0, 1, 1},//5
             {0, 1, 1, 0, 1, 0, 0},//6
             {0, 0, 0, 1, 1, 0, 0} //7
-        };
+        }; 
         //Atribui para G
         G = g;
         JOptionPane.showMessageDialog(null, "Grafo carregado!");
@@ -145,8 +145,6 @@ public class Principal {
         int conta = 1;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                //A matriz é simetrica é suficiente verificar 
-                //o triângulo superior ou inferior por 1.
                 if ((G[i][j] == 1) && (i < j)) {
                     saida = saida + "e" + conta + ",";
                     conta = conta + 1;
@@ -157,7 +155,7 @@ public class Principal {
     }
 
     /**
-     * Retorna a lista de arestas do grafo em pares.
+     * Retorna a lista de arestas do Grafo.
      *
      * @param G Matriz do grafo.
      * @param n Quantidade de vértices do grafo.
@@ -168,19 +166,19 @@ public class Principal {
         int conta = 1;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                //Verifica se existe par para i e j
                 if (G[i][j] == 1) {
-                    saida = saida + "e" + conta + "=(" + trocar(i) + "," + trocar(j) + ")\n";
+                    saida = saida + "e" + conta + "=(" + trocar(i) + "," + trocar(j) + "),";
                     conta = conta + 1;
                 }
             }
+            saida = saida + "\n";
         }
         return saida;
     }
 
     /**
      * Retorna o grau de um vértice.
-     *
+     * 
      * @param G Matriz do grafo.
      * @param n Quantidade de vértices do grafo.
      * @param i Vértice do grafo.
@@ -188,17 +186,15 @@ public class Principal {
      */
     public static int grauVertice(int[][] G, int n, int i) {
         int conta = 0;
-        //Percorre a linha de adjacencia de i
         for (int j = 0; j < n; j++) {
-            //Verifica se existe adjacente
             if (G[i][j] == 1) {
                 conta = conta + 1;
             }
         }
         return conta;
     }
-
-    /**
+    
+     /**
      * Retorna a lista do grau dos vértices do Grafo.
      *
      * @param G Matriz do grafo.
@@ -206,21 +202,20 @@ public class Principal {
      * @return String com os graus dos vértices.
      */
     public static String listarGrau(int[][] G, int n) {
-        String saida = "";
+        String saida = "";   
         int conta = 0;
         for (int i = 0; i < n; i++) {
-            //Recupera o grau do vértice i
-            int dv = grauVertice(G, n, i);
-            saida = saida + "d(" + trocar(i) + ")=" + dv + "\n";
+            int dv = grauVertice(G,n,i);
+            saida = saida + "d(" + trocar(i) + ")=" + dv + "\n";            
             conta = conta + dv;
         }
-        saida = saida + "Total = " + conta;
+        saida = saida + "Total = " + conta; 
         return saida;
     }
-
-    /**
+    
+     /**
      * Retorna as adjacências de um vértice.
-     *
+     * 
      * @param G Matriz do grafo.
      * @param n Quantidade de vértices do grafo.
      * @param i Vértice do grafo.
@@ -229,14 +224,13 @@ public class Principal {
     public static String adjacencias(int[][] G, int n, int i) {
         String saida = trocar(i) + "->";
         for (int j = 0; j < n; j++) {
-            //Verifica se existe um vértice adjacente para i em j
             if (G[i][j] == 1) {
                 saida = saida + trocar(j) + ",";
             }
         }
         return saida;
     }
-
+    
     /**
      * Retorna a lista das adjacências dos vértices do Grafo.
      *
@@ -245,10 +239,10 @@ public class Principal {
      * @return String com os graus dos vértices.
      */
     public static String listarAdjacencias(int[][] G, int n) {
-        String saida = "";
-        for (int i = 0; i < n; i++) {
-            saida = saida + adjacencias(G, n, i) + "\n";
-        }
+        String saida = "";           
+        for (int i = 0; i < n; i++) {            
+            saida = saida + adjacencias(G,n,i) + "\n";                        
+        }        
         return saida;
     }
 
@@ -285,7 +279,7 @@ public class Principal {
                 }
                 case 1: {
                     //Recupera os dados da matriz
-                    String dados = "Matriz de Adjacência:" + "\n" + imprimirMatriz(G, n, n);
+                    String dados = "Matriz Adjacência:" + "\n" + imprimirMatriz(G, n, n);
                     //Adiciona a String em um TextArea
                     JTextArea saida = new JTextArea(dados);
                     //Exibe o TextArea com showMessageDialog
@@ -326,7 +320,7 @@ public class Principal {
                 case 6: {
                     int i = Integer.parseInt(JOptionPane.showInputDialog("Digite o indice(0-" + n + ") de um vértice para saber o grau(d):"));
                     //Recupera os dados da matriz
-                    String dados = "Grau do Vértice : \n" + "d(" + trocar(i) + ")=" + grauVertice(G, n, i);
+                    String dados = "Grau do Vértice : \n" + "d("+ trocar(i) + ")=" + grauVertice(G, n ,i);
                     //Adiciona a String em um TextArea
                     JTextArea saida = new JTextArea(dados);
                     //Exibe o TextArea com showMessageDialog
@@ -335,7 +329,7 @@ public class Principal {
                 }
                 case 7: {
                     //Recupera os dados da matriz
-                    String dados = "Lista dos Graus dos Vértices:" + "\n" + listarGrau(G, n);
+                    String dados = "Grau dos Vértices:" + "\n" + listarGrau(G, n);
                     //Adiciona a String em um TextArea
                     JTextArea saida = new JTextArea(dados);
                     //Exibe o TextArea com showMessageDialog
@@ -345,7 +339,7 @@ public class Principal {
                 case 8: {
                     int i = Integer.parseInt(JOptionPane.showInputDialog("Digite o indice(0-" + n + ") de um vértice para saber as adjacências:"));
                     //Recupera os dados da matriz
-                    String dados = "Adjacências: \n" + adjacencias(G, n, i);
+                    String dados = "Adjacências: \n" + adjacencias(G, n ,i);
                     //Adiciona a String em um TextArea
                     JTextArea saida = new JTextArea(dados);
                     //Exibe o TextArea com showMessageDialog

@@ -78,20 +78,27 @@ public class Principal {
      *
      */
     public static void carregarGrafoPadrao() {
-        //Número de vértices do grafo
-        n = 7;
 
         //Declara a matriz de adjacência do grafo g
         int[][] g = {
             //1  2  3  4  5  6  7
             {0, 1, 0, 1, 0, 0, 0},//1
-            {1, 0, 1, 1, 0, 1, 0},//2
-            {0, 1, 0, 0, 0, 1, 0},//3
-            {1, 1, 0, 0, 0, 0, 1},//4
-            {0, 0, 0, 0, 0, 1, 1},//5
-            {0, 1, 1, 0, 1, 0, 0},//6
-            {0, 0, 0, 1, 1, 0, 0} //7
+            {0, 0, 1, 0, 0, 1, 0},//2
+            {0, 0, 0, 0, 0, 1, 0},//3
+            {0, 1, 0, 0, 0, 0, 1},//4
+            {0, 0, 0, 0, 0, 1, 0},//5
+            {0, 0, 0, 0, 0, 0, 0},//6
+            {0, 0, 0, 0, 1, 0, 0} //7
         };
+//        int[][] g = {
+//            //1  2  3 
+//            {0, 1, 1},//1
+//            {1, 0, 1},//2
+//            {1, 1, 0},//3
+//        };
+        //Número de vértices do grafo
+        n = 7;
+
         //Atribui para G
         G = g;
         JOptionPane.showMessageDialog(null, "Grafo carregado!");
@@ -177,6 +184,32 @@ public class Principal {
     }
 
     /**
+     * Verifica se dois vértices são adjacentes.
+     *
+     * Para ser adjacente deve existir uma aresta ligando os dois vértices. Ou
+     * seja G[x][y] deve ser diferente 0.
+     *
+     * @param G Matriz do grafo.
+     * @param n Quantidade de vértices do grafo.
+     * @param i Primeiro vértice
+     * @param j Segundo vértice
+     * @return Se x e y são adjacentes
+     */
+    public static boolean verificaAdjacencia(int[][] G, int n, int i, int j) {
+        //Os vértices x e y devem ser menor que n
+        if ((i < n) && (j < n)) {
+            //Verifica se é diferente de 0 ou seja existe aresta.
+            if (G[i][j] == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Retorna o grau de um vértice.
      *
      * @param G Matriz do grafo.
@@ -214,16 +247,17 @@ public class Principal {
     }
 
     /**
-     * Retorna as adjacências de um vértice.
+     * Retorna os vértices adjacentes de um vértice.
      *
      * @param G Matriz do grafo.
      * @param n Quantidade de vértices do grafo.
      * @param i Vértice do grafo.
-     * @return String com as adjacências de i.
+     * @return String com as adjacentes de i.
      */
-    public static String adjacencias(int[][] G, int n, int i) {
+    public static String adjacentes(int[][] G, int n, int i) {
         String saida = trocar(i) + "->";
         for (int j = 0; j < n; j++) {
+            //Verifica se existe um vértice adjacente para i em j
             if (G[i][j] == 1) {
                 saida = saida + trocar(j) + ",";
             }
@@ -232,18 +266,40 @@ public class Principal {
     }
 
     /**
-     * Retorna a lista das adjacências dos vértices do Grafo.
+     * Retorna a lista dos vértices adjacentes do Grafo.
      *
      * @param G Matriz do grafo.
      * @param n Quantidade de vértices do grafo.
-     * @return String com os graus dos vértices.
+     * @return String com a lista dos vértices adjacentes.
      */
-    public static String listarAdjacencias(int[][] G, int n) {
+    public static String listarAdjacentes(int[][] G, int n) {
         String saida = "";
         for (int i = 0; i < n; i++) {
-            saida = saida + adjacencias(G, n, i) + "\n";
+            saida = saida + adjacentes(G, n, i) + "\n";
         }
         return saida;
+    }
+
+    /**
+     * Verifica se o grafo é simples.
+     *
+     * O Grafo não pode ter laço(G[i][i]>0) ou arestas paralelas((G[i][j]>1).
+     *
+     * @param G Matriz do grafo.
+     * @param n Quantidade de vértices do grafo.
+     * @return Se o grafo é simples.
+     */
+    public static boolean eSimples(int[][] G, int n) {
+        // Nao pode ter laco ou paralela
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                //Verifica se o vértice i possui aresta paralela(>1) ou laço(i,i) > 0
+                if (G[i][j] > 1 || G[i][i] > 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -256,19 +312,67 @@ public class Principal {
      * @return Se o grafo é conexo.
      */
     public static boolean eConexo(int[][] G, int n) {
-        //Assume que o grafo é conexo
-        boolean conexo = true;
-        int i = 0;
-        //Percorre todos os vértice e não encontrou nenhum vértice desconexo
-        while ((i < n) && (conexo == true)) {
-            //Verifica se o vértice i é de grau 0
+        for (int i = 0; i < n; i++) {
+            //Verifica se o vértice i é de grau 0, ou seja
+            //nenhum vértice chega ou parte dele
             if (grauVertice(G, n, i) == 0) {
-                conexo = false;
+                return false;
             }
-            //Avança para o próximo vértice
-            i = i + 1;
         }
-        return conexo;
+        return true;
+    }
+
+    /**
+     * Verifica se o grafo é completo.
+     *
+     * Se para todo A[i][j] existe uma aresta e não seja na diagonal principal.
+     *
+     * @param G Matriz do grafo.
+     * @param n Quantidade de vértices do grafo.
+     * @return Se o grafo é completo.
+     */
+    public static boolean eCompleto(int[][] G, int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                //Para todo vértice diferente da diagonal principal(i!=j) existe
+                //uma aresta(diferente de 0)
+                if ((G[i][j] == 0) && (i != j)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Verifica se o grafo é regular.
+     *
+     * O Grafo tem o mesmo grau para todos os vértices.
+     *
+     * @param G Matriz do grafo.
+     * @param n Quantidade de vértices do grafo.
+     * @return Se o grafo é regular.
+     */
+    public static boolean eRegular(int[][] G, int n) {
+        //Armazenar o grau de cada vértice    
+        int[] graus = new int[n];
+        //Soma o grau de entrada e saída de cada vértice        
+        for (int i = 0; i < n; i++) {
+            graus[i] = 0;
+            for (int j = 0; j < n; j++) {
+                graus[i] = graus[i] + G[i][j];
+            }
+        }
+        //Verifica a soma dos graus
+        //Desconta 1 no tamanho
+        for (int i = 0; i < n - 1; i++) {
+            //Verifica se o grau do vértice graus[i] é diferente a graus[i+1]            
+            if (graus[i] != graus[i + 1]) {
+                return false;
+            }
+        }
+        //Todos os graus são iguais
+        return true;
     }
 
     /**
@@ -291,9 +395,13 @@ public class Principal {
                     + " 5- Mostra a lista das arestas em pares\n"
                     + " 6- Mostra o grau de um vértice\n"
                     + " 7- Mostra a lista dos graus dos vértices\n"
-                    + " 8- Mostra as adjacências de um vértice\n"
-                    + " 9- Mostra a lista das adjacências dos vértices\n"
-                    + "10- Verifica se o grafo é conexo\n"
+                    + " 8- Verifica se dois vértices são adjacentes\n"
+                    + " 9- Mostra as adjacências de um vértice\n"
+                    + "10- Mostra a lista das adjacências dos vértices\n"
+                    + "11- Verifica se o grafo é simples\n"
+                    + "12- Verifica se o grafo é conexo\n"
+                    + "13- Verifica se o grafo é completo\n"
+                    + "14- Verifica se o grafo é regular\n"
                     //Outras opções vão aqui                    
                     + "99- Sair\n"
                     + "Digite a opção desejada:"));
@@ -344,7 +452,7 @@ public class Principal {
                     break;
                 }
                 case 6: {
-                    int i = Integer.parseInt(JOptionPane.showInputDialog("Digite o indice(0-" + n + ") de um vértice para saber o grau(d):"));
+                    int i = Integer.parseInt(JOptionPane.showInputDialog("Digite o indice(0-" + (n - 1) + ") de um vértice para saber o grau(d):"));
                     //Recupera os dados da matriz
                     String dados = "Grau do Vértice : \n" + "d(" + trocar(i) + ")=" + grauVertice(G, n, i);
                     //Adiciona a String em um TextArea
@@ -363,18 +471,26 @@ public class Principal {
                     break;
                 }
                 case 8: {
-                    int i = Integer.parseInt(JOptionPane.showInputDialog("Digite o indice(0-" + n + ") de um vértice para saber as adjacências:"));
+                    int i = Integer.parseInt(JOptionPane.showInputDialog("Digite o indice(0-" + (n - 1) + ") do primeiro vértice:"));
+                    int j = Integer.parseInt(JOptionPane.showInputDialog("Digite o indice(0-" + (n - 1) + ") do segundo vértice:"));
+                    String dados = "Os vértices " + trocar(i) + " e " + trocar(j);
                     //Recupera os dados da matriz
-                    String dados = "Adjacências: \n" + adjacencias(G, n, i);
+                    if (verificaAdjacencia(G, n, i, j) == true) {
+                        dados = dados + " são adjacentes";
+                    } else {
+                        dados = dados + " não são adjacentes";
+                    }
                     //Adiciona a String em um TextArea
                     JTextArea saida = new JTextArea(dados);
                     //Exibe o TextArea com showMessageDialog
                     JOptionPane.showMessageDialog(null, saida);
                     break;
                 }
+
                 case 9: {
+                    int i = Integer.parseInt(JOptionPane.showInputDialog("Digite o indice(0-" + (n - 1) + ") de um vértice para saber as adjacências:"));
                     //Recupera os dados da matriz
-                    String dados = "Lista das Adjacências:" + "\n" + listarAdjacencias(G, n);
+                    String dados = "Adjacências: \n" + adjacentes(G, n, i);
                     //Adiciona a String em um TextArea
                     JTextArea saida = new JTextArea(dados);
                     //Exibe o TextArea com showMessageDialog
@@ -382,6 +498,29 @@ public class Principal {
                     break;
                 }
                 case 10: {
+                    //Recupera os dados da matriz
+                    String dados = "Lista das Adjacências:" + "\n" + listarAdjacentes(G, n);
+                    //Adiciona a String em um TextArea
+                    JTextArea saida = new JTextArea(dados);
+                    //Exibe o TextArea com showMessageDialog
+                    JOptionPane.showMessageDialog(null, saida);
+                    break;
+                }
+                case 11: {
+                    String dados = "O grafo ";
+                    //Recupera s dado da matriz
+                    if (eSimples(G, n) == true) {
+                        dados = dados + "é simples";
+                    } else {
+                        dados = dados + "não é simples";
+                    }
+                    //Adiciona a String em um TextArea
+                    JTextArea saida = new JTextArea(dados);
+                    //Exibe o TextArea com showMessageDialog
+                    JOptionPane.showMessageDialog(null, saida);
+                    break;
+                }
+                case 12: {
                     String dados = "O grafo ";
                     //Recupera s dado da matriz
                     if (eConexo(G, n) == true) {
@@ -395,6 +534,35 @@ public class Principal {
                     JOptionPane.showMessageDialog(null, saida);
                     break;
                 }
+                case 13: {
+                    String dados = "O grafo ";
+                    //Recupera s dado da matriz
+                    if (eCompleto(G, n) == true) {
+                        dados = dados + "é completo";
+                    } else {
+                        dados = dados + "não é completo";
+                    }
+                    //Adiciona a String em um TextArea
+                    JTextArea saida = new JTextArea(dados);
+                    //Exibe o TextArea com showMessageDialog
+                    JOptionPane.showMessageDialog(null, saida);
+                    break;
+                }
+                case 14: {
+                    String dados = "O grafo ";
+                    //Recupera s dado da matriz
+                    if (eRegular(G, n) == true) {
+                        dados = dados + "é regular";
+                    } else {
+                        dados = dados + "não é regular";
+                    }
+                    //Adiciona a String em um TextArea
+                    JTextArea saida = new JTextArea(dados);
+                    //Exibe o TextArea com showMessageDialog
+                    JOptionPane.showMessageDialog(null, saida);
+                    break;
+                }
+
                 //Opção de saída do programa
                 case 99: {
                     System.out.println("Saindo do programa!");

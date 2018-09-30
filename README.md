@@ -14,5 +14,7 @@ Operações diversas com grafos não orientados em matriz de adjacência:<br>
 - Verificar se o grafo é conexo<br>
 - Verificar se o grafo é completo<br>
 - Verificar se o grafo é regular<br>
+- Verificar se o grafo possui ciclo euleriano<br>
+- Verificar se o grafo possui caminho euleriano<br>
 
 

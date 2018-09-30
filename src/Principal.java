@@ -376,6 +376,75 @@ public class Principal {
     }
 
     /**
+     * Verifica se o grafo possu ciclo euleriano.
+     *
+     * Um grafo euleriano deve possuir um ciclo que inclua todas as arestas do
+     * grafo. Para um grafo ser Euleriano todos os vértices precisam ser de grau
+     * par. O caminho começa e termina no mesmo vértice.
+     *
+     * @param G Matriz do grafo.
+     * @param n Quantidade de vértices do grafo.
+     * @return Se o grafo é euleriano.
+     */
+    public static boolean possuiCicloEuleriano(int[][] G, int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                //Verifica se o vértice i possui aresta paralela(>1) ou laço(i,i) > 0
+                //Se existir é um grafo euleriano
+                if (G[i][j] > 1 || G[i][i] > 0) {
+                    return false;
+                }
+            }
+        }
+        //Conta o grau do vértice i
+        for (int i = 0; i < n; i++) {
+            int grau = 0;
+            for (int j = 0; j < n; j++) {
+                grau = grau + G[i][j];
+            }
+            //Se o grau for impar não é euleriano
+            if (grau % 2 != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Verifica se o grafo possui caminho euleriano.
+     *
+     * Um caminho Euleriano não repete arestas, mas não precisam terminar no
+     * mesmo vértice. Pode existir
+     *
+     * @param G Matriz do grafo.
+     * @param n Quantidade de vértices do grafo.
+     * @return Se o grafo possui caminho euleriano.
+     */
+    public static boolean possuiCaminhoEuleriano(int[][] G, int n) {
+        //Registra a quantidade de vértices com grau impar
+        int verticeGrauImpar = 0;
+        for (int i = 0; i < n; i++) {
+            int grau = 0;
+            for (int j = 0; j < n; j++) {
+                //Conta o grau do vértice i
+                if (G[i][j] == 1) {
+                    grau = grau + 1;
+                }
+            }
+            //Se o grau do vértice i for impar conta
+            if ((grau % 2) == 1) {
+                //Conta as quantidade de vértices com grau impar
+                verticeGrauImpar = verticeGrauImpar + 1;
+            }
+        }
+        if (verticeGrauImpar > 2) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
      * Programa principal.
      *
      * @param args
@@ -402,6 +471,8 @@ public class Principal {
                     + "12- Verifica se o grafo é conexo\n"
                     + "13- Verifica se o grafo é completo\n"
                     + "14- Verifica se o grafo é regular\n"
+                    + "15- Verifica se o grafo é euleriano\n"
+                    + "16- Verifica se o possui caminho euleriano\n"
                     //Outras opções vão aqui                    
                     + "99- Sair\n"
                     + "Digite a opção desejada:"));
@@ -555,6 +626,34 @@ public class Principal {
                         dados = dados + "é regular";
                     } else {
                         dados = dados + "não é regular";
+                    }
+                    //Adiciona a String em um TextArea
+                    JTextArea saida = new JTextArea(dados);
+                    //Exibe o TextArea com showMessageDialog
+                    JOptionPane.showMessageDialog(null, saida);
+                    break;
+                }
+                case 15: {
+                    String dados = "O grafo ";
+                    //Recupera s dado da matriz
+                    if (possuiCicloEuleriano(G, n) == true) {
+                        dados = dados + "possui ciclo euleriano";
+                    } else {
+                        dados = dados + "não possui ciclo euleriano";
+                    }
+                    //Adiciona a String em um TextArea
+                    JTextArea saida = new JTextArea(dados);
+                    //Exibe o TextArea com showMessageDialog
+                    JOptionPane.showMessageDialog(null, saida);
+                    break;
+                }
+                case 16: {
+                    String dados = "O grafo ";
+                    //Recupera s dado da matriz
+                    if (possuiCaminhoEuleriano(G, n) == true) {
+                        dados = dados + " poussi caminho euleriano";
+                    } else {
+                        dados = dados + " não possui caminho euleriano";
                     }
                     //Adiciona a String em um TextArea
                     JTextArea saida = new JTextArea(dados);

@@ -81,7 +81,7 @@ public class Principal {
 
         //Declara a matriz de adjacência do grafo g
         int[][] g = {
-            //1  2  3  4  5  6  7
+           //1  2  3  4  5  6  7
             {0, 1, 0, 1, 0, 0, 0},//1
             {0, 0, 1, 0, 0, 1, 0},//2
             {0, 0, 0, 0, 0, 1, 0},//3
@@ -152,6 +152,8 @@ public class Principal {
         int conta = 1;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
+                //Verifica se´igual 1 ou seja existe aresta em G[i][j]. 
+                // e o i < j ou seja o triângulo superior.
                 if ((G[i][j] == 1) && (i < j)) {
                     saida = saida + "e" + conta + ",";
                     conta = conta + 1;
@@ -163,6 +165,8 @@ public class Principal {
 
     /**
      * Retorna a lista de arestas do Grafo.
+     * 
+     * Retorna uma lista das arestas em pares E=(vi,vj).
      *
      * @param G Matriz do grafo.
      * @param n Quantidade de vértices do grafo.
@@ -173,6 +177,7 @@ public class Principal {
         int conta = 1;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
+                //Verifica se´igual 1 ou seja existe aresta em G[i][j] para contar
                 if (G[i][j] == 1) {
                     saida = saida + "e" + conta + "=(" + trocar(i) + "," + trocar(j) + "),";
                     conta = conta + 1;
@@ -198,7 +203,7 @@ public class Principal {
     public static boolean verificaAdjacencia(int[][] G, int n, int i, int j) {
         //Os vértices x e y devem ser menor que n
         if ((i < n) && (j < n)) {
-            //Verifica se é diferente de 0 ou seja existe aresta.
+            //Verifica se é diferente de 0 ou seja existe aresta em G[i][j]
             if (G[i][j] == 0) {
                 return false;
             } else {
@@ -220,6 +225,7 @@ public class Principal {
     public static int grauVertice(int[][] G, int n, int i) {
         int conta = 0;
         for (int j = 0; j < n; j++) {
+            //Verifica se´igual 1 ou seja existe aresta em G[i][j]
             if (G[i][j] == 1) {
                 conta = conta + 1;
             }
@@ -248,6 +254,8 @@ public class Principal {
 
     /**
      * Retorna os vértices adjacentes de um vértice.
+     * 
+     * Retorna os vizinhos de um vértice.
      *
      * @param G Matriz do grafo.
      * @param n Quantidade de vértices do grafo.
@@ -294,7 +302,7 @@ public class Principal {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 //Verifica se o vértice i possui aresta paralela(>1) ou laço(i,i) > 0
-                if (G[i][j] > 1 || G[i][i] > 0) {
+                if ((G[i][j] > 1) || (G[i][i] > 0)) {
                     return false;
                 }
             }
@@ -391,7 +399,7 @@ public class Principal {
             for (int j = 0; j < n; j++) {
                 //Verifica se o vértice i possui aresta paralela(>1) ou laço(i,i) > 0
                 //Se existir é um grafo euleriano
-                if (G[i][j] > 1 || G[i][i] > 0) {
+                if ((G[i][j] > 1 ) || (G[i][i] > 0)) {
                     return false;
                 }
             }
@@ -403,7 +411,7 @@ public class Principal {
                 grau = grau + G[i][j];
             }
             //Se o grau for impar não é euleriano
-            if (grau % 2 != 0) {
+            if ((grau % 2) != 0) {
                 return false;
             }
         }

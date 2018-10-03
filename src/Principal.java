@@ -471,8 +471,8 @@ public class Principal {
                     + "12- Verifica se o grafo é conexo\n"
                     + "13- Verifica se o grafo é completo\n"
                     + "14- Verifica se o grafo é regular\n"
-                    + "15- Verifica se o grafo é euleriano\n"
-                    + "16- Verifica se o possui caminho euleriano\n"
+                    + "15- Verifica se o grafo é Euleriano\n"
+                    + "16- Verifica se o possui caminho Euleriano\n"
                     //Outras opções vão aqui                    
                     + "99- Sair\n"
                     + "Digite a opção desejada:"));

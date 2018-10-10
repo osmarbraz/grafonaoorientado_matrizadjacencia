@@ -22,7 +22,7 @@ public class Principal {
      * @return Um rótulo para a posição i
      */
     public static String rotuloVertice(int i) {
-        String[] rotulos = {"a1", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+        String[] rotulos = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
         if ((i >= 0) && (i <= rotulos.length)) {
             return (rotulos[i] + "");
         } else {

@@ -452,7 +452,7 @@ public class Principal {
      * Verifica se o grafo possui caminho euleriano.
      *
      * Um caminho Euleriano não repete arestas, mas não precisam terminar no
-     * mesmo vértice. Pode existir
+     * mesmo vértice. Pode existir no máximo 2 vértices com grau impar.
      *
      * @param G Matriz do grafo.
      * @param n Quantidade de vértices do grafo.

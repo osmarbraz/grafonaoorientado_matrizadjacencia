@@ -82,24 +82,25 @@ public class Principal {
     public static void carregarGrafoPadrao() {
 
         //Declara a matriz de adjacência do grafo g
-//        int[][] g = {
-//            //1  2  3  4  5  6  7
-//            {0, 1, 0, 1, 0, 0, 0},//1
-//            {1, 0, 1, 1, 0, 1, 0},//2
-//            {0, 1, 0, 0, 0, 1, 0},//3
-//            {1, 1, 0, 0, 0, 0, 1},//4
-//            {0, 0, 0, 0, 0, 1, 1},//5
-//            {0, 1, 1, 0, 1, 0, 0},//6
-//            {0, 0, 0, 1, 1, 0, 0} //7
-//        };
         int[][] g = {
-            //1  2  3 
-            {0, 1, 2},//1
-            {1, 1, 1},//2
-            {2, 1, 0},//3
+            //1  2  3  4  5  6  7
+            {0, 1, 0, 1, 0, 0, 0},//1
+            {1, 0, 1, 1, 0, 1, 0},//2
+            {0, 1, 0, 0, 0, 1, 0},//3
+            {1, 1, 0, 0, 0, 0, 1},//4
+            {0, 0, 0, 0, 0, 1, 1},//5
+            {0, 1, 1, 0, 1, 0, 0},//6
+            {0, 0, 0, 1, 1, 0, 0} //7
         };
+
+//        int[][] g = {
+//            //1  2  3 
+//            {0, 1, 1},//1
+//            {1, 0, 1},//2
+//            {1, 1, 0},//3
+//        };
         //Número de vértices do grafo
-        n = 3;
+        n = 7;
 
         //Atribui para G
         G = g;
@@ -170,6 +171,9 @@ public class Principal {
 
     /**
      * Retorna a quantidade de arestas do Grafo.
+     *
+     * Realiza a soma de todas as posições A[i][j] do grafo no triângulo
+     * superior(i<=j).
      *
      * @param G Matriz do grafo.
      * @param n Quantidade de vértices do grafo.

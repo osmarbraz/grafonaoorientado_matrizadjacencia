@@ -3,6 +3,7 @@
  * Implementação de exemplo que utiliza JOptionPane para construir um menu de
  * opções para um grafo utilizando uma matriz de adjacência.
  */
+
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
@@ -10,6 +11,7 @@ public class Principal {
 
     //Número de vértices do grafo
     static int n = 0;
+    
     //Matriz M de n por n
     static int[][] G = new int[n][n];
 
@@ -617,7 +619,9 @@ public class Principal {
                     + "17- Verifica se o grafo é Euleriano\n"
                     + "18- Verifica se o possui caminho Euleriano\n"
                     + "19- Converte para Matriz de Incidência\n"
-                    //Outras opções vão aqui                    
+                    
+                    //Outras opções vão aqui          
+                    
                     + "99- Sair\n"
                     + "Digite a opção desejada:"));
             //Verifica a opção
@@ -846,7 +850,7 @@ public class Principal {
                     System.out.println("Opção inválida!");
                     break;
                 }
-            }//Fim Switch
-        }//Fim While
-    }//Fim Main
+            }//Fim switch
+        }//Fim while
+    }//Fim main
 }

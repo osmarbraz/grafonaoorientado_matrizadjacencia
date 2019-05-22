@@ -1,9 +1,7 @@
-
 /**
  * Implementação de exemplo que utiliza JOptionPane para construir um menu de
  * opções para um grafo utilizando uma matriz de adjacência.
  */
-
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
@@ -596,6 +594,8 @@ public class Principal {
 
         //Armazena opção lida
         int opcao = -1;
+        
+        //Laço do menu de opções
         while (opcao != 99) {
             //Realiza a leitura da opção
             opcao = Integer.parseInt(JOptionPane.showInputDialog("\t### Menu de Opções - Grafo Não Orientado com Matriz de Adjacência ###\n"
@@ -624,6 +624,7 @@ public class Principal {
                     
                     + "99- Sair\n"
                     + "Digite a opção desejada:"));
+            
             //Verifica a opção
             switch (opcao) {
                 case 0: {
@@ -723,7 +724,6 @@ public class Principal {
                     JOptionPane.showMessageDialog(null, saida);
                     break;
                 }
-
                 case 11: {
                     int i = Integer.parseInt(JOptionPane.showInputDialog("Digite o indice(0-" + (n - 1) + ") de um vértice para saber as adjacências:"));
                     //Recupera os dados da matriz
@@ -839,7 +839,9 @@ public class Principal {
                     JOptionPane.showMessageDialog(null, saida);
                     break;
                 }
-
+                
+                //Outras opções vão aqui
+                
                 //Opção de saída do programa
                 case 99: {
                     System.out.println("Saindo do programa!");
@@ -853,4 +855,4 @@ public class Principal {
             }//Fim switch
         }//Fim while
     }//Fim main
-}
+}//Fim Principal
